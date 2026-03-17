@@ -1,0 +1,82 @@
+use super::africa::{apply_africa_modifier, speed_to_deciseconds};
+use super::RoutingProfile;
+use crate::graph::{Edge, RoadClass};
+
+pub struct MotorcycleProfile;
+
+const MOTORCYCLE_SPEEDS: [f64; 8] = [100.0, 80.0, 70.0, 55.0, 45.0, 30.0, 25.0, 15.0];
+
+impl RoutingProfile for MotorcycleProfile {
+    fn name(&self) -> &str {
+        "motorcycle"
+    }
+
+    fn is_accessible(&self, edge: &Edge) -> bool {
+        if edge.is_seasonal_closure() {
+            return false;
+        }
+        !matches!(edge.road_class(), RoadClass::Path)
+            || matches!(edge.road_class(), RoadClass::Track | RoadClass::Path)
+    }
+
+    fn edge_weight(&self, edge: &Edge) -> Option<u32> {
+        if edge.is_seasonal_closure() {
+            return None;
+        }
+        let base_speed = MOTORCYCLE_SPEEDS[edge.road_class() as usize];
+        if base_speed <= 0.0 {
+            return None;
+        }
+        let speed = apply_africa_modifier(base_speed, edge)?;
+        Some(speed_to_deciseconds(edge.distance_m, speed))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::graph::{make_flags, Access, RoadClass, Surface};
+
+    fn edge_with(road_class: RoadClass, surface: Surface, oneway: bool, seasonal: bool) -> Edge {
+        Edge {
+            target: 0,
+            geo_index: 0,
+            shortcut_mid: 0,
+            distance_m: 1000,
+            time_ds: 0,
+            flags: make_flags(
+                road_class,
+                surface,
+                oneway,
+                seasonal,
+                Access::Yes,
+                Access::Yes,
+                false,
+            ),
+            _padding: 0,
+        }
+    }
+
+    #[test]
+    fn motorcycle_accepts_track() {
+        let edge = edge_with(RoadClass::Track, Surface::Unpaved, false, false);
+        assert!(MotorcycleProfile.is_accessible(&edge));
+        assert!(MotorcycleProfile.edge_weight(&edge).is_some());
+    }
+
+    #[test]
+    fn unpaved_penalty_applied() {
+        let paved = edge_with(RoadClass::Primary, Surface::Paved, false, false);
+        let unpaved = edge_with(RoadClass::Primary, Surface::Unpaved, false, false);
+        let paved_time = MotorcycleProfile.edge_weight(&paved).unwrap();
+        let unpaved_time = MotorcycleProfile.edge_weight(&unpaved).unwrap();
+        assert!(unpaved_time > paved_time);
+    }
+
+    #[test]
+    fn seasonal_closure_inaccessible() {
+        let edge = edge_with(RoadClass::Primary, Surface::Paved, false, true);
+        assert!(!MotorcycleProfile.is_accessible(&edge));
+        assert!(MotorcycleProfile.edge_weight(&edge).is_none());
+    }
+}

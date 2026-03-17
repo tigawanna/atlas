@@ -1,0 +1,49 @@
+[package]
+name = "atlas-server"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Augani/atlas"
+
+[[bin]]
+name = "atlas-server"
+path = "src/main.rs"
+
+[lib]
+name = "atlas_server"
+path = "src/lib.rs"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-tiles = { path = "../atlas-tiles" }
+atlas-geocode = { path = "../atlas-geocode" }
+atlas-route = { path = "../atlas-route" }
+atlas-search = { path = "../atlas-search" }
+axum = { workspace = true }
+tokio = { workspace = true }
+tower-http = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+bytes = { workspace = true }
+metrics = { workspace = true }
+metrics-exporter-prometheus = { workspace = true }
+uuid = { workspace = true }
+dashmap = { workspace = true }
+aws-sdk-dynamodb = { workspace = true }
+aws-sdk-s3 = { workspace = true }
+aws-config = { workspace = true }
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = ["json"] }
+tokio = { workspace = true }
+async-trait = { workspace = true }
+tilejson = { workspace = true }
+atlas-core = { path = "../atlas-core" }
+atlas-tiles = { path = "../atlas-tiles" }
+atlas-geocode = { path = "../atlas-geocode" }
+atlas-route = { path = "../atlas-route" }
+atlas-search = { path = "../atlas-search" }
+bytes = { workspace = true }
+serde_json = { workspace = true }

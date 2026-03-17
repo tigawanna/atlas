@@ -1,0 +1,23 @@
+[package]
+name = "atlas-geocode"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Augani/atlas"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+tantivy = { workspace = true }
+tantivy-tokenizer-api = { workspace = true }
+rstar = { workspace = true }
+bincode = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+unicode-normalization = { workspace = true }
+whatlang = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"

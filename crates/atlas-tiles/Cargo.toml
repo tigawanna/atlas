@@ -1,0 +1,34 @@
+[package]
+name = "atlas-tiles"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Augani/atlas"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+pmtiles = { workspace = true }
+aws-sdk-s3 = { workspace = true }
+tilejson = { workspace = true }
+async-trait = { workspace = true }
+tokio = { workspace = true }
+bytes = { workspace = true }
+lru = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+metrics = { workspace = true }
+thiserror = { workspace = true }
+prost = { workspace = true }
+geo = { workspace = true }
+geo-types = { workspace = true }
+flate2 = { workspace = true }
+osmpbf = { workspace = true }
+rayon = { workspace = true }
+
+[build-dependencies]
+prost-build = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+tempfile = "3"

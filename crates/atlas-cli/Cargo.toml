@@ -1,0 +1,30 @@
+[package]
+name = "atlas-cli"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Augani/atlas"
+
+[[bin]]
+name = "atlas"
+path = "src/main.rs"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-ingest = { path = "../atlas-ingest" }
+atlas-geocode = { path = "../atlas-geocode" }
+atlas-search = { path = "../atlas-search" }
+atlas-route = { path = "../atlas-route" }
+atlas-tiles = { path = "../atlas-tiles" }
+clap = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+indicatif = { workspace = true }
+aws-sdk-s3 = { workspace = true }
+aws-config = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+reqwest = { workspace = true }
+futures-util = "0.3"

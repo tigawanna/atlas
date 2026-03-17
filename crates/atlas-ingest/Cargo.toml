@@ -1,0 +1,35 @@
+[package]
+name = "atlas-ingest"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Augani/atlas"
+
+[[bin]]
+name = "atlas-ingest"
+path = "src/main.rs"
+
+[lib]
+name = "atlas_ingest"
+path = "src/lib.rs"
+
+[dependencies]
+atlas-core = { path = "../atlas-core" }
+atlas-geocode = { path = "../atlas-geocode" }
+atlas-route = { path = "../atlas-route" }
+atlas-search = { path = "../atlas-search" }
+atlas-tiles = { path = "../atlas-tiles" }
+arrow = { workspace = true }
+parquet = { workspace = true }
+osmpbf = { workspace = true }
+bincode = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+unicode-normalization = { workspace = true }
+strsim = { workspace = true }
+clap = { workspace = true }
+indicatif = { workspace = true }
+rayon = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+rstar = { workspace = true }

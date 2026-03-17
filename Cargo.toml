@@ -1,0 +1,56 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/atlas-core",
+    "crates/atlas-tiles",
+    "crates/atlas-server",
+    "crates/atlas-geocode",
+    "crates/atlas-ingest",
+    "crates/atlas-route",
+    "crates/atlas-search",
+    "crates/atlas-cli",
+]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+axum = "0.8"
+tower-http = { version = "0.6", features = ["compression-br", "compression-gzip", "cors", "trace"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+pmtiles = { version = "0.21", features = ["mmap-async-tokio", "aws-s3-async", "tilejson"] }
+async-trait = "0.1"
+tilejson = "0.4"
+bytes = "1"
+lru = "0.16"
+aws-sdk-s3 = "1"
+aws-config = { version = "1", features = ["behavior-version-latest"] }
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tantivy = "0.22"
+tantivy-tokenizer-api = "0.3"
+arrow = "55"
+parquet = "55"
+osmpbf = "0.3"
+rstar = { version = "0.12", features = ["serde"] }
+unicode-normalization = "0.1"
+whatlang = "0.16"
+bincode = "1"
+strsim = "0.11"
+clap = { version = "4", features = ["derive"] }
+indicatif = "0.17"
+rayon = "1"
+bitflags = "2"
+bytemuck = { version = "1", features = ["derive"] }
+metrics = "0.24"
+metrics-exporter-prometheus = "0.16"
+dashmap = "6"
+aws-sdk-dynamodb = "1"
+uuid = { version = "1", features = ["v4"] }
+prost = "0.13"
+prost-build = "0.13"
+geo = "0.29"
+geo-types = "0.7"
+flate2 = "1"
+reqwest = { version = "0.12", features = ["stream"] }
+time = { version = "0.3", features = ["formatting", "parsing"] }
